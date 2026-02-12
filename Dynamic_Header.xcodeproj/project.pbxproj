@@ -14,6 +14,9 @@
 		AC67D8022F3CAEE400865F0E /* SecondScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC67D8012F3CAEE400865F0E /* SecondScreen.swift */; };
 		AC67D8042F3CB05E00865F0E /* ThirdScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC67D8032F3CB05E00865F0E /* ThirdScreen.swift */; };
 		AC67D8062F3CB90F00865F0E /* FourthScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC67D8052F3CB90F00865F0E /* FourthScreen.swift */; };
+		ACFB14272F3DDD6B00950077 /* FifthScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB14262F3DDD6B00950077 /* FifthScreen.swift */; };
+		ACFB14292F3DEA8800950077 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB14282F3DEA8800950077 /* TabView.swift */; };
+		ACFB142B2F3DF84200950077 /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB142A2F3DF84200950077 /* Entity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +28,9 @@
 		AC67D8012F3CAEE400865F0E /* SecondScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondScreen.swift; sourceTree = "<group>"; };
 		AC67D8032F3CB05E00865F0E /* ThirdScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdScreen.swift; sourceTree = "<group>"; };
 		AC67D8052F3CB90F00865F0E /* FourthScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourthScreen.swift; sourceTree = "<group>"; };
+		ACFB14262F3DDD6B00950077 /* FifthScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FifthScreen.swift; sourceTree = "<group>"; };
+		ACFB14282F3DEA8800950077 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
+		ACFB142A2F3DF84200950077 /* Entity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,9 +65,12 @@
 			children = (
 				AC67D7F32F3C54DA00865F0E /* Dynamic_HeaderApp.swift */,
 				AC67D7F52F3C54DB00865F0E /* ContentView.swift */,
+				ACFB142A2F3DF84200950077 /* Entity.swift */,
 				AC67D8012F3CAEE400865F0E /* SecondScreen.swift */,
 				AC67D8032F3CB05E00865F0E /* ThirdScreen.swift */,
 				AC67D8052F3CB90F00865F0E /* FourthScreen.swift */,
+				ACFB14262F3DDD6B00950077 /* FifthScreen.swift */,
+				ACFB14282F3DEA8800950077 /* TabView.swift */,
 				AC67D7F72F3C54DF00865F0E /* Assets.xcassets */,
 				AC67D7F92F3C54DF00865F0E /* Preview Content */,
 			);
@@ -147,8 +156,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC67D8062F3CB90F00865F0E /* FourthScreen.swift in Sources */,
+				ACFB14272F3DDD6B00950077 /* FifthScreen.swift in Sources */,
 				AC67D7F62F3C54DB00865F0E /* ContentView.swift in Sources */,
 				AC67D7F42F3C54DA00865F0E /* Dynamic_HeaderApp.swift in Sources */,
+				ACFB142B2F3DF84200950077 /* Entity.swift in Sources */,
+				ACFB14292F3DEA8800950077 /* TabView.swift in Sources */,
 				AC67D8022F3CAEE400865F0E /* SecondScreen.swift in Sources */,
 				AC67D8042F3CB05E00865F0E /* ThirdScreen.swift in Sources */,
 			);

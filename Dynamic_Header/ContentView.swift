@@ -8,70 +8,167 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
-        StretchyHeaderDashboard()
-    }
-}
-
-struct StretchyHeaderDashboard: View {
     @State private var scrollOffset: CGFloat = 0
-    @State private var navController: UINavigationController?
+    @State private var isRefreshing: Bool = false
+    @State private var selectedTab: TopSectionEnum = .first
+    @State private var timer = Timer.publish(every: 5, on: .main, in: .common).autoconnect()
+    
     init() {
-        UIScrollView.appearance().bounces = false
+        UIRefreshControl.appearance().tintColor = .clear
+    }
+    
+    var heroOpacity: Double {
+
+        let startFade: CGFloat = 0
+        let endFade: CGFloat = -120
+
+        if scrollOffset >= startFade {
+            return 1
+        }
+        if scrollOffset <= endFade {
+            return 0
+        }
+        let progress = (scrollOffset - endFade) / (startFade - endFade)
+        return Double(progress)
     }
     
     var body: some View {
-  
-        
-        firstView()
-    }
-    
-    func firstView() -> some View{
         ZStack(alignment: .top) {
             
-            ScrollView {
-                VStack(spacing: 0) {
-                    
-                    GeometryReader { geo -> Color in
-                        let minY = geo.frame(in: .global).minY
-                        DispatchQueue.main.async {
-                            self.scrollOffset = minY
-                        }
-                        return Color.clear
-                    }
-                    .frame(height: 0)
-                    
-                    HeroContent()
-                    
-                    ForEach(1...20, id: \.self) { i in
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text("\(i)")
-                                    .frame(width: 300)
+            if #available(iOS 15.0, *) {
+                ScrollView {
+                    VStack(spacing: 0) {
+                        GeometryReader { geo -> Color in
+                            let minY = geo.frame(in: .global).minY
+                            DispatchQueue.main.async {
+                                self.scrollOffset = minY
                             }
+                            return Color.clear
+                        }
+                        .frame(height: 0)
+                        
+                        topSection()
+                        
+                        ForEach(1...20, id: \.self) { i in
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text("\(i)")
+                                        .frame(width: 300)
+                                }
+                            }
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(12)
+                            .shadow(radius: 2)
                         }
                         .padding()
-                        .background(Color.white)
-                        .cornerRadius(12)
-                        .shadow(radius: 2)
                     }
-                    .padding()
-                    
                 }
+                .refreshable {
+                    withAnimation { isRefreshing = true }
+                    try? await Task.sleep(nanoseconds: 2 * 1_000_000_000)
+                    
+                    withAnimation { isRefreshing = false }
+                }
+            } else {
+                // Fallback on earlier versions
             }
-
+            if isRefreshing {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: Color.white))
+                    .scaleEffect(1.5)
+                    .padding(.top, 70)
+                    .zIndex(2)
+                    .transition(.opacity)
+            }
+            
             CustomHeader(scrollOffset: scrollOffset,
-                         heroHeight: 276)
-
-                    .ignoresSafeArea()
+                         heroHeight: 276,selectedTab: selectedTab)
+            
+            .ignoresSafeArea()
         }
     }
     
+    func topSection() -> some View {
+        GeometryReader { geo in
+            let minY = geo.frame(in: .global).minY
+            let size = geo.size
+            let height = size.height + (minY > 0 ? minY : 0)
+            
+            ZStack(alignment: .topLeading){
+                Rectangle()
+                    .fill(selectedTab.gradient)
+                    .animation(.easeInOut(duration: 0.35), value: selectedTab)
+                
+                
+                TabView(selection: $selectedTab) {
+                    
+                    ForEach(TopSectionEnum.allCases, id: \.self) { tab in
+                        
+                        heroPage(title: tab.title, image: tab.image)
+                            .tag(tab)
+                    }
+                }
+                .opacity(heroOpacity)
+                .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
+                .onReceive(timer) { _ in
+                    moveToNextTab()
+                }
+                
+                
+            }
+            .frame(width: size.width, height: height)
+            .offset(y: minY > 0 ? -minY : 0)
+        }
+        .frame(height: 236)
+    }
+    
+    func moveToNextTab() {
+        let allTabs = TopSectionEnum.allCases
+        if let currentIndex = allTabs.firstIndex(of: selectedTab) {
+            let nextIndex = (currentIndex + 1) % allTabs.count
+            withAnimation {
+                selectedTab = allTabs[nextIndex]
+            }
+        }
+    }
+
+    func heroPage(title: String, image: String) -> some View {
+        
+        ZStack(alignment: .topLeading) {
+            HStack {
+                VStack(alignment: .leading, spacing: 10) {
+                    
+                    Text(title)
+                        .font(.system(size: 28, weight: .bold))
+                        .foregroundColor(.white)
+                    
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text("One Qualification.")
+                        Text("Endless Global Opportunities")
+                    }
+                    .padding(.top, 7)
+                    .font(.system(size: 12))
+                    .foregroundColor(Color(hex: "#C4D8ED"))
+                }
+                Spacer()
+            }
+            .padding(.leading, 30)
+            .padding(.top, 108)
+            
+            Image(image)
+                .frame(width: 111, height: 132)
+                .frame(maxWidth: .infinity, alignment: .topTrailing)
+                .padding(.top, 72)
+                .padding(.trailing, 29)
+        }
+    }
 }
 
 struct CustomHeader: View {
     var scrollOffset: CGFloat
     var heroHeight: CGFloat
+    var selectedTab: TopSectionEnum
     
     var isScrolled: Bool {
         return scrollOffset < -146
@@ -81,26 +178,23 @@ struct CustomHeader: View {
         HStack(spacing: 0){
             VStack(alignment: .leading, spacing: 2) {
                 Text("Hey, Vemalla Srinivas Reddy!")
-                    .font(.system(size: 14, weight: .bold))
+                    .font(.system(size: 14, weight: .semibold))
                     .foregroundColor(isScrolled ? Color(hex: "#205188") : .white)
                 
                 Text("Welcome, we’re happy to have you here!")
                     .font(.system(size: 10))
-                    .foregroundColor(isScrolled ? Color(hex: "#205188") : .white.opacity(0.9))
+                    .foregroundColor(isScrolled ? Color(hex: "#205188") : .white)
             }
             
             Spacer()
             
             HStack(spacing: 12) {
-                
-                HeaderIconBtn(icon: "megaphone.fill", isScrolled: isScrolled){
+                headerIconBtn(icon: "megaphone.fill", isScrolled: isScrolled){
                     print("")
                 }
-                HeaderIconBtn(icon: "bell.fill", isScrolled: isScrolled){
+                headerIconBtn(icon: "bell.fill", isScrolled: isScrolled){
                     print("")
                 }
-                
-                
                 Image("pic1")
                     .resizable()
                     .scaledToFit()
@@ -111,22 +205,15 @@ struct CustomHeader: View {
                     )
             }
         }
-
         .padding(.horizontal, 16)
         .padding(.bottom, 10)
         .padding(.top, 50)
         .background(isScrolled ? Color.white : Color.clear)
         .animation(.easeInOut(duration: 0.25), value: isScrolled)
-        .shadow(radius: 20)
+        .shadow(radius: 0.5)
     }
-}
-
-struct HeaderIconBtn: View {
-    let icon: String
-    let isScrolled: Bool
-    let action: () -> Void
-    
-    var body: some View {
+    func headerIconBtn(icon: String, isScrolled: Bool, action: @escaping() -> Void) -> some View {
+        
         Button(action: action){
             ZStack {
                 Circle()
@@ -141,62 +228,8 @@ struct HeaderIconBtn: View {
                 
             }
         }
-        
-        
     }
 }
-
-struct HeroContent: View {
-    
-    var body: some View {
-        
-        GeometryReader { geo in
-            
-            let minY = geo.frame(in: .global).minY
-            let size = geo.size
-            
-            let height = size.height + (minY > 0 ? minY : 0)
-            
-            ZStack{
-                
-                LinearGradient(
-                    colors: [
-                        Color(hex: "#205188"),
-                        Color(hex: "#64AEDE")
-                    ],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                .frame(width: size.width, height: height)
-                .offset(y: minY > 0 ? -minY : 0)
-                
-                HStack {
-                    VStack(alignment: .leading, spacing: 10) {
-                        
-                        Text("Dip IFR")
-                            .font(.system(size: 28, weight: .heavy))
-                            .foregroundColor(.white)
-                        
-                        VStack(alignment: .leading, spacing: 5) {
-                            Text("One Qualification.")
-                            Text("Endless Global Opportunities")
-                        }
-                        .font(.system(size: 12))
-                        .foregroundColor(.white.opacity(0.9))
-                    }
-                    
-                    Spacer()
-                }
-                .padding(.horizontal, 30)
-                .padding(.bottom, 53)
-                .padding(.top, 108)
-            }
-            
-        }
-        .frame(height: 236)
-    }
-}
-
 
 
 extension Color {
