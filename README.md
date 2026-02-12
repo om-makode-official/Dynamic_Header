@@ -1,1 +1,1 @@
-https://github.com/om-makode-official/Dynamic_Header/blob/main/Dynamic_Header/Simulator%20Screen%20Recording%20-%20iPhone%2013%20Pro%20-%202026-02-12%20at%2019.20.06.mp4
+<video src = "https://github.com/om-makode-official/Dynamic_Header/blob/68aec15909ea3c6112db733c72490da36effde37/Dynamic_Header/Simulator%20Screen%20Recording%20-%20iPad%20(10th%20generation)%20-%202026-02-12%20at%2019.24.09.mp4"> </video>
