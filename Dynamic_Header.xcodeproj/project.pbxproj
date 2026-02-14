@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC2C5EDE2F404C2300BDA0C8 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2C5EDD2F404C2300BDA0C8 /* Test.swift */; };
+		AC50BF772F3F3D700089F697 /* SafeStateTillAnnouncementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC50BF762F3F3D700089F697 /* SafeStateTillAnnouncementView.swift */; };
 		AC67D7F42F3C54DA00865F0E /* Dynamic_HeaderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC67D7F32F3C54DA00865F0E /* Dynamic_HeaderApp.swift */; };
 		AC67D7F62F3C54DB00865F0E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC67D7F52F3C54DB00865F0E /* ContentView.swift */; };
 		AC67D7F82F3C54DF00865F0E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC67D7F72F3C54DF00865F0E /* Assets.xcassets */; };
@@ -20,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AC2C5EDD2F404C2300BDA0C8 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
+		AC50BF762F3F3D700089F697 /* SafeStateTillAnnouncementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafeStateTillAnnouncementView.swift; sourceTree = "<group>"; };
 		AC67D7F02F3C54DA00865F0E /* Dynamic_Header.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dynamic_Header.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC67D7F32F3C54DA00865F0E /* Dynamic_HeaderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dynamic_HeaderApp.swift; sourceTree = "<group>"; };
 		AC67D7F52F3C54DB00865F0E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -71,6 +75,8 @@
 				AC67D8052F3CB90F00865F0E /* FourthScreen.swift */,
 				ACFB14262F3DDD6B00950077 /* FifthScreen.swift */,
 				ACFB14282F3DEA8800950077 /* TabView.swift */,
+				AC2C5EDD2F404C2300BDA0C8 /* Test.swift */,
+				AC50BF762F3F3D700089F697 /* SafeStateTillAnnouncementView.swift */,
 				AC67D7F72F3C54DF00865F0E /* Assets.xcassets */,
 				AC67D7F92F3C54DF00865F0E /* Preview Content */,
 			);
@@ -161,6 +167,8 @@
 				AC67D7F42F3C54DA00865F0E /* Dynamic_HeaderApp.swift in Sources */,
 				ACFB142B2F3DF84200950077 /* Entity.swift in Sources */,
 				ACFB14292F3DEA8800950077 /* TabView.swift in Sources */,
+				AC50BF772F3F3D700089F697 /* SafeStateTillAnnouncementView.swift in Sources */,
+				AC2C5EDE2F404C2300BDA0C8 /* Test.swift in Sources */,
 				AC67D8022F3CAEE400865F0E /* SecondScreen.swift in Sources */,
 				AC67D8042F3CB05E00865F0E /* ThirdScreen.swift in Sources */,
 			);
